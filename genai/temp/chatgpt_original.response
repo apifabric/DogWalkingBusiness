@@ -1,0 +1,98 @@
+{
+    "models": [
+        {
+            "classname": "Owner",
+            "code": "class Owner(Base):\n    \"\"\"description: Represents the owner of pets in the dog walking business.\"\"\"\n\n    __tablename__ = 'owner'\n\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    name = Column(String, nullable=False)\n    address = Column(String)\n    email = Column(String)\n    phone = Column(String)\n    registration_date = Column(Date)\n    total_fees_due = Column(Integer)  # derived attribute from sum rule",
+            "description": "Represents the owner of pets in the dog walking business.",
+            "name": "Owner"
+        },
+        {
+            "classname": "Dog",
+            "code": "class Dog(Base):\n    \"\"\"description: Represents a dog that belongs to an owner.\"\"\"\n\n    __tablename__ = 'dog'\n\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    name = Column(String, nullable=False)\n    breed = Column(String)\n    birth_date = Column(Date)\n    owner_id = Column(Integer, ForeignKey('owner.id'))",
+            "description": "Represents a dog that belongs to an owner.",
+            "name": "Dog"
+        },
+        {
+            "classname": "Walker",
+            "code": "class Walker(Base):\n    \"\"\"description: Represents a dog walker employee.\"\"\"\n\n    __tablename__ = 'walker'\n\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    name = Column(String, nullable=False)\n    email = Column(String)\n    phone = Column(String)\n    hire_date = Column(Date)\n    total_walks = Column(Integer) # derived attribute from count rule\n    total_earnings = Column(Integer) # derived attribute from formula rule",
+            "description": "Represents a dog walker employee.",
+            "name": "Walker"
+        },
+        {
+            "classname": "Walk",
+            "code": "class Walk(Base):\n    \"\"\"description: Represents an individual walk event.\"\"\"\n\n    __tablename__ = 'walk'\n\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    date_time = Column(DateTime, nullable=False)\n    duration_minutes = Column(Integer)\n    dog_id = Column(Integer, ForeignKey('dog.id'))\n    walker_id = Column(Integer, ForeignKey('walker.id'))\n    fee = Column(Integer)",
+            "description": "Represents an individual walk event.",
+            "name": "Walk"
+        },
+        {
+            "classname": "ClientPayment",
+            "code": "class ClientPayment(Base):\n    \"\"\"description: Represents a payment made by a client.\"\"\"\n\n    __tablename__ = 'client_payment'\n\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    amount = Column(Integer, nullable=False)\n    date = Column(Date, nullable=False)\n    owner_id = Column(Integer, ForeignKey('owner.id'))",
+            "description": "Represents a payment made by a client.",
+            "name": "ClientPayment"
+        },
+        {
+            "classname": "WalkerPayment",
+            "code": "class WalkerPayment(Base):\n    \"\"\"description: Represents a payment made to a walker.\"\"\"\n\n    __tablename__ = 'walker_payment'\n\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    amount = Column(Integer, nullable=False)\n    date = Column(Date, nullable=False)\n    walker_id = Column(Integer, ForeignKey('walker.id'))",
+            "description": "Represents a payment made to a walker.",
+            "name": "WalkerPayment"
+        },
+        {
+            "classname": "Booking",
+            "code": "class Booking(Base):\n    \"\"\"description: Represents a pre-scheduled booking of a walk for a dog.\"\"\"\n\n    __tablename__ = 'booking'\n\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    walk_date = Column(Date, nullable=False)\n    status = Column(String)\n    dog_id = Column(Integer, ForeignKey('dog.id'))\n    walker_id = Column(Integer, ForeignKey('walker.id'))",
+            "description": "Represents a pre-scheduled booking of a walk for a dog.",
+            "name": "Booking"
+        },
+        {
+            "classname": "DogHistory",
+            "code": "class DogHistory(Base):\n    \"\"\"description: Records historical walks and related details for dogs.\"\"\"\n\n    __tablename__ = 'dog_history'\n\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    dog_id = Column(Integer, ForeignKey('dog.id'))\n    walk_id = Column(Integer, ForeignKey('walk.id'))",
+            "description": "Records historical walks and related details for dogs.",
+            "name": "DogHistory"
+        },
+        {
+            "classname": "MaintenanceLog",
+            "code": "class MaintenanceLog(Base):\n    \"\"\"description: Logs maintenance activities related to dogs, such as grooming or health check-ups.\"\"\"\n\n    __tablename__ = 'maintenance_log'\n\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    description = Column(String)\n    date = Column(Date)\n    dog_id = Column(Integer, ForeignKey('dog.id'))",
+            "description": "Logs maintenance activities related to dogs, such as grooming or health check-ups.",
+            "name": "MaintenanceLog"
+        },
+        {
+            "classname": "Feedback",
+            "code": "class Feedback(Base):\n    \"\"\"description: Stores feedback from clients regarding the walks.\"\"\"\n\n    __tablename__ = 'feedback'\n\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    comments = Column(String)\n    rating = Column(Integer)\n    date = Column(Date)\n    dog_id = Column(Integer, ForeignKey('dog.id'))\n    walker_id = Column(Integer, ForeignKey('walker.id'))",
+            "description": "Stores feedback from clients regarding the walks.",
+            "name": "Feedback"
+        },
+        {
+            "classname": "Schedule",
+            "code": "class Schedule(Base):\n    \"\"\"description: Represents a walker\u2019s daily schedule.\"\"\"\n\n    __tablename__ = 'schedule'\n\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    day_of_week = Column(String)\n    available_hours_start = Column(DateTime)\n    available_hours_end = Column(DateTime)\n    walker_id = Column(Integer, ForeignKey('walker.id'))",
+            "description": "Represents a walker\u2019s daily schedule.",
+            "name": "Schedule"
+        },
+        {
+            "classname": "Service",
+            "code": "class Service(Base):\n    \"\"\"description: Represents additional services offered to clients, such as grooming or training.\"\"\"\n\n    __tablename__ = 'service'\n\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    name = Column(String, nullable=False)\n    price = Column(Integer)\n    dog_id = Column(Integer, ForeignKey('dog.id'))",
+            "description": "Represents additional services offered to clients, such as grooming or training.",
+            "name": "Service"
+        }
+    ],
+    "rules": [
+        {
+            "name": "Owner Total Fees Due Calculation",
+            "description": "Calculate the total fees due by summing the fees of all walks associated with the owner's dogs.",
+            "use_case": "Derive the total fees due for an owner by summing the fees of all associated walk records for their dogs.",
+            "code": "Rule.sum(derive=Owner.total_fees_due, as_sum_of=Walk.fee, child_role_name='Dog')"
+        },
+        {
+            "name": "Walker Total Walks Count",
+            "description": "Track the total number of walks a walker has conducted.",
+            "use_case": "Incrementally update after each walk to reflect the accurate number of walks per walker.",
+            "code": "Rule.count(derive=Walker.total_walks, as_count_of=Walk, where=None, child_role_name='Walker')"
+        },
+        {
+            "name": "Walker Total Earnings Calculation",
+            "description": "Calculate the walker\u2019s total earnings as the sum of the fees earned from all walks.",
+            "use_case": "Calculate total earnings for a walker to manage payroll or self-assessment.",
+            "code": "Rule.sum(derive=Walker.total_earnings, as_sum_of=Walk.fee, child_role_name='Walker')"
+        }
+    ],
+    "test_data": "# Test data creation for each table:\n\n# Owners\nowner1 = Owner(id=1, name=\"John Doe\", address=\"123 Maple Street\", email=\"john@example.com\", phone=\"555-1234\", registration_date=date(2021, 1, 10), total_fees_due=100)\nowner2 = Owner(id=2, name=\"Jane Smith\", address=\"456 Oak Avenue\", email=\"jane@example.com\", phone=\"555-5678\", registration_date=date(2021, 2, 15), total_fees_due=150)\nowner3 = Owner(id=3, name=\"Emily Johnson\", address=\"789 Pine Road\", email=\"emily@example.com\", phone=\"555-8765\", registration_date=date(2021, 3, 20), total_fees_due=75)\nowner4 = Owner(id=4, name=\"Henry Brown\", address=\"321 Elm Street\", email=\"henry@example.com\", phone=\"555-6543\", registration_date=date(2021, 4, 25), total_fees_due=200)\n\n# Dogs\n\ndog1 = Dog(id=1, name=\"Rex\", breed=\"Labrador\", birth_date=date(2019, 5, 1), owner_id=1)\ndog2 = Dog(id=2, name=\"Fido\", breed=\"Beagle\", birth_date=date(2020, 6, 15), owner_id=2)\ndog3 = Dog(id=3, name=\"Fluffy\", breed=\"Poodle\", birth_date=date(2018, 7, 20), owner_id=3)\ndog4 = Dog(id=4, name=\"Bella\", breed=\"Bulldog\", birth_date=date(2019, 8, 25), owner_id=4)\n\n# Walkers\nwalker1 = Walker(id=1, name=\"Alice Walker\", email=\"alice@example.com\", phone=\"555-1111\", hire_date=date(2022, 1, 5), total_walks=0, total_earnings=0)\nwalker2 = Walker(id=2, name=\"Bob Trail\", email=\"bob@example.com\", phone=\"555-2222\", hire_date=date(2022, 2, 10), total_walks=0, total_earnings=0)\nwalker3 = Walker(id=3, name=\"Charlie Way\", email=\"charlie@example.com\", phone=\"555-3333\", hire_date=date(2022, 3, 15), total_walks=0, total_earnings=0)\nwalker4 = Walker(id=4, name=\"Diana Path\", email=\"diana@example.com\", phone=\"555-4444\", hire_date=date(2022, 4, 20), total_walks=0, total_earnings=0)\n\n# Walks\nwalk1 = Walk(id=1, date_time=datetime(2022, 5, 10, 10, 0), duration_minutes=30, dog_id=1, walker_id=1, fee=25)\nwalk2 = Walk(id=2, date_time=datetime(2022, 6, 20, 9, 30), duration_minutes=45, dog_id=2, walker_id=2, fee=30)\nwalk3 = Walk(id=3, date_time=datetime(2022, 7, 15, 11, 0), duration_minutes=60, dog_id=3, walker_id=3, fee=40)\nwalk4 = Walk(id=4, date_time=datetime(2022, 8, 5, 8, 45), duration_minutes=30, dog_id=4, walker_id=4, fee=35)\n\n# Client Payments\npayment1 = ClientPayment(id=1, amount=100, date=date(2022, 9, 1), owner_id=1)\npayment2 = ClientPayment(id=2, amount=150, date=date(2022, 10, 5), owner_id=2)\npayment3 = ClientPayment(id=3, amount=75, date=date(2022, 11, 10), owner_id=3)\npayment4 = ClientPayment(id=4, amount=200, date=date(2022, 12, 15), owner_id=4)\n\n# Walker Payments\nwpayment1 = WalkerPayment(id=1, amount=100, date=date(2022, 9, 25), walker_id=1)\nwpayment2 = WalkerPayment(id=2, amount=150, date=date(2022, 10, 30), walker_id=2)\nwpayment3 = WalkerPayment(id=3, amount=75, date=date(2022, 11, 25), walker_id=3)\nwpayment4 = WalkerPayment(id=4, amount=200, date=date(2022, 12, 30), walker_id=4)\n\n# Bookings\nbooking1 = Booking(id=1, walk_date=date(2022, 12, 1), status=\"Scheduled\", dog_id=1, walker_id=1)\nbooking2 = Booking(id=2, walk_date=date(2022, 12, 2), status=\"Completed\", dog_id=2, walker_id=2)\nbooking3 = Booking(id=3, walk_date=date(2022, 12, 3), status=\"Cancelled\", dog_id=3, walker_id=3)\nbooking4 = Booking(id=4, walk_date=date(2022, 12, 4), status=\"Scheduled\", dog_id=4, walker_id=4)\n\n# Dog History\nhistory1 = DogHistory(id=1, dog_id=1, walk_id=1)\nhistory2 = DogHistory(id=2, dog_id=2, walk_id=2)\nhistory3 = DogHistory(id=3, dog_id=3, walk_id=3)\nhistory4 = DogHistory(id=4, dog_id=4, walk_id=4)\n\n# Maintenance Logs\nlog1 = MaintenanceLog(id=1, description=\"Grooming Session\", date=date(2022, 1, 15), dog_id=1)\nlog2 = MaintenanceLog(id=2, description=\"Veterinary Check-up\", date=date(2022, 2, 20), dog_id=2)\nlog3 = MaintenanceLog(id=3, description=\"Vaccination Schedule\", date=date(2022, 3, 25), dog_id=3)\nlog4 = MaintenanceLog(id=4, description=\"Dental Cleaning\", date=date(2022, 4, 30), dog_id=4)\n\n# Feedback\nfeedback1 = Feedback(id=1, comments=\"Great walk!\", rating=5, date=date(2022, 1, 5), dog_id=1, walker_id=1)\nfeedback2 = Feedback(id=2, comments=\"Very good service\", rating=4, date=date(2022, 2, 10), dog_id=2, walker_id=2)\nfeedback3 = Feedback(id=3, comments=\"Average experience\", rating=3, date=date(2022, 3, 15), dog_id=3, walker_id=3)\nfeedback4 = Feedback(id=4, comments=\"Loved it!\", rating=5, date=date(2022, 4, 20), dog_id=4, walker_id=4)\n\n# Schedules\nschedule1 = Schedule(id=1, day_of_week=\"Monday\", available_hours_start=datetime(2022, 1, 3, 8, 0), available_hours_end=datetime(2022, 1, 3, 17, 0), walker_id=1)\nschedule2 = Schedule(id=2, day_of_week=\"Tuesday\", available_hours_start=datetime(2022, 1, 4, 9, 0), available_hours_end=datetime(2022, 1, 4, 18, 0), walker_id=2)\nschedule3 = Schedule(id=3, day_of_week=\"Wednesday\", available_hours_start=datetime(2022, 1, 5, 8, 0), available_hours_end=datetime(2022, 1, 5, 17, 0), walker_id=3)\nschedule4 = Schedule(id=4, day_of_week=\"Thursday\", available_hours_start=datetime(2022, 1, 6, 10, 0), available_hours_end=datetime(2022, 1, 6, 19, 0), walker_id=4)\n\n# Services\nservice1 = Service(id=1, name=\"Grooming\", price=50, dog_id=1)\nservice2 = Service(id=2, name=\"Training\", price=75, dog_id=2)\nservice3 = Service(id=3, name=\"Vet Checkup\", price=60, dog_id=3)\nservice4 = Service(id=4, name=\"Walking\", price=40, dog_id=4)",
+    "name": "DogWalkingBusiness"
+}

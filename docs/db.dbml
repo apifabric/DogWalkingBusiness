@@ -1,0 +1,134 @@
+// Copy this text, paste to https://dbdiagram.io/d
+// Or, https://databasediagram.com/app
+// Or, view in VSCode with extension: "DBML Live Preview"
+
+Project DBML {
+  Note: '''
+Booking: Represents a pre-scheduled booking of a walk for a dog.
+Dog: Represents a dog that belongs to an owner.
+Walker: Represents a dog walker employee.
+ClientPayment: Represents a payment made by a client.
+Owner: Represents the owner of pets in the dog walking business.
+DogHistory: Records historical walks and related details for dogs.
+Walk: Represents an individual walk event.
+Feedback: Stores feedback from clients regarding the walks.
+MaintenanceLog: Logs maintenance activities related to dogs, such as grooming or health check-ups.
+Schedule: Represents a walker’s daily schedule.
+Service: Represents additional services offered to clients, such as grooming or training.
+WalkerPayment: Represents a payment made to a walker.
+'''
+}
+
+Table Booking {
+    id INTEGER [primary key]
+    walk_date DATE 
+    status VARCHAR 
+    dog_id INTEGER 
+    walker_id INTEGER 
+    }
+
+Table Dog {
+    id INTEGER [primary key]
+    name VARCHAR 
+    breed VARCHAR 
+    birth_date DATE 
+    owner_id INTEGER 
+    }
+
+Table Walker {
+    id INTEGER [primary key]
+    name VARCHAR 
+    email VARCHAR 
+    phone VARCHAR 
+    hire_date DATE 
+    total_walks INTEGER 
+    total_earnings INTEGER 
+    }
+
+Table ClientPayment {
+    id INTEGER [primary key]
+    amount INTEGER 
+    date DATE 
+    owner_id INTEGER 
+    }
+
+Table Owner {
+    id INTEGER [primary key]
+    name VARCHAR 
+    address VARCHAR 
+    email VARCHAR 
+    phone VARCHAR 
+    registration_date DATE 
+    total_fees_due INTEGER 
+    }
+
+Table DogHistory {
+    id INTEGER [primary key]
+    dog_id INTEGER 
+    walk_id INTEGER 
+    }
+
+Table Walk {
+    id INTEGER [primary key]
+    date_time DATETIME 
+    duration_minutes INTEGER 
+    dog_id INTEGER 
+    walker_id INTEGER 
+    fee INTEGER 
+    }
+
+Table Feedback {
+    id INTEGER [primary key]
+    comments VARCHAR 
+    rating INTEGER 
+    date DATE 
+    dog_id INTEGER 
+    walker_id INTEGER 
+    }
+
+Table MaintenanceLog {
+    id INTEGER [primary key]
+    description VARCHAR 
+    date DATE 
+    dog_id INTEGER 
+    }
+
+Table Schedule {
+    id INTEGER [primary key]
+    day_of_week VARCHAR 
+    available_hours_start DATETIME 
+    available_hours_end DATETIME 
+    walker_id INTEGER 
+    }
+
+Table Service {
+    id INTEGER [primary key]
+    name VARCHAR 
+    price INTEGER 
+    dog_id INTEGER 
+    }
+
+Table WalkerPayment {
+    id INTEGER [primary key]
+    amount INTEGER 
+    date DATE 
+    walker_id INTEGER 
+    }
+
+
+
+// Relationships
+    Ref: Booking.(dog_id) < Dog.(id)
+    Ref: Booking.(walker_id) < Walker.(id)
+    Ref: Dog.(owner_id) < Owner.(id)
+    Ref: ClientPayment.(owner_id) < Owner.(id)
+    Ref: DogHistory.(dog_id) < Dog.(id)
+    Ref: DogHistory.(walk_id) < Walk.(id)
+    Ref: Walk.(dog_id) < Dog.(id)
+    Ref: Walk.(walker_id) < Walker.(id)
+    Ref: Feedback.(dog_id) < Dog.(id)
+    Ref: Feedback.(walker_id) < Walker.(id)
+    Ref: MaintenanceLog.(dog_id) < Dog.(id)
+    Ref: Schedule.(walker_id) < Walker.(id)
+    Ref: Service.(dog_id) < Dog.(id)
+    Ref: WalkerPayment.(walker_id) < Walker.(id)

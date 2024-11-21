@@ -1,0 +1,587 @@
+about:
+  date: November 21, 2024 20:53:38
+  recent_changes: works with modified safrs-react-admin
+  version: 0.0.0
+api_root: '{http_type}://{swagger_host}:{port}/{api}'
+authentication: '{system-default}'
+entities:
+  Booking:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: dog_id
+      template: integer
+      type: INTEGER
+    - name: walker_id
+      template: integer
+      type: INTEGER
+    - name: walk_date
+      required: true
+      type: DATE
+    - name: status
+      template: text
+      type: VARCHAR
+    description: Represents a pre-scheduled booking of a walk for a dog.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    hidden: {}
+    home_template: home_template.html
+    info_list: Represents a pre-scheduled booking of a walk for a dog.
+    label: Booking
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - dog_id
+      name: dog
+      resource: Dog
+    - direction: toone
+      fks:
+      - walker_id
+      name: walker
+      resource: Walker
+    type: Booking
+  ClientPayment:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: owner_id
+      template: integer
+      type: INTEGER
+    - name: amount
+      required: true
+      template: integer
+      type: INTEGER
+    - name: date
+      required: true
+      type: DATE
+    description: Represents a payment made by a client.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    hidden: {}
+    home_template: home_template.html
+    info_list: Represents a payment made by a client.
+    label: ClientPayment
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - owner_id
+      name: owner
+      resource: Owner
+    type: ClientPayment
+  Dog:
+    columns:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: owner_id
+      template: integer
+      type: INTEGER
+    - name: birth_date
+      type: DATE
+    - name: id
+      template: integer
+      type: INTEGER
+    - name: breed
+      template: text
+      type: VARCHAR
+    description: Represents a dog that belongs to an owner.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: name
+    hidden: {}
+    home_template: home_template.html
+    info_list: Represents a dog that belongs to an owner.
+    label: Dog
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - dog_id
+      name: BookingList
+      resource: Booking
+    - direction: tomany
+      fks:
+      - dog_id
+      name: DogHistoryList
+      resource: DogHistory
+    - direction: tomany
+      fks:
+      - dog_id
+      name: FeedbackList
+      resource: Feedback
+    - direction: tomany
+      fks:
+      - dog_id
+      name: MaintenanceLogList
+      resource: MaintenanceLog
+    - direction: tomany
+      fks:
+      - dog_id
+      name: ServiceList
+      resource: Service
+    - direction: tomany
+      fks:
+      - dog_id
+      name: WalkList
+      resource: Walk
+    - direction: toone
+      fks:
+      - owner_id
+      name: owner
+      resource: Owner
+    type: Dog
+  DogHistory:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: dog_id
+      template: integer
+      type: INTEGER
+    - name: walk_id
+      template: integer
+      type: INTEGER
+    description: Records historical walks and related details for dogs.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    hidden: {}
+    home_template: home_template.html
+    info_list: Records historical walks and related details for dogs.
+    label: DogHistory
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - dog_id
+      name: dog
+      resource: Dog
+    - direction: toone
+      fks:
+      - walk_id
+      name: walk
+      resource: Walk
+    type: DogHistory
+  Feedback:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: dog_id
+      template: integer
+      type: INTEGER
+    - name: walker_id
+      template: integer
+      type: INTEGER
+    - name: comments
+      template: text
+      type: VARCHAR
+    - name: rating
+      template: integer
+      type: INTEGER
+    - name: date
+      type: DATE
+    description: Stores feedback from clients regarding the walks.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    hidden: {}
+    home_template: home_template.html
+    info_list: Stores feedback from clients regarding the walks.
+    label: Feedback
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - dog_id
+      name: dog
+      resource: Dog
+    - direction: toone
+      fks:
+      - walker_id
+      name: walker
+      resource: Walker
+    type: Feedback
+  MaintenanceLog:
+    columns:
+    - label: ' description*'
+      name: description
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: dog_id
+      template: integer
+      type: INTEGER
+    - name: date
+      type: DATE
+    - name: id
+      template: integer
+      type: INTEGER
+    description: Logs maintenance activities related to dogs, such as grooming or
+      health check-ups.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: description
+    hidden: {}
+    home_template: home_template.html
+    info_list: Logs maintenance activities related to dogs, such as grooming or health
+      check-ups.
+    label: MaintenanceLog
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - dog_id
+      name: dog
+      resource: Dog
+    type: MaintenanceLog
+  Owner:
+    columns:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: address
+      template: text
+      type: VARCHAR
+    - name: email
+      template: text
+      type: VARCHAR
+    - name: phone
+      template: text
+      type: VARCHAR
+    - name: registration_date
+      type: DATE
+    - name: total_fees_due
+      template: integer
+      type: INTEGER
+    - name: id
+      template: integer
+      type: INTEGER
+    description: Represents the owner of pets in the dog walking business.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: name
+    hidden: {}
+    home_template: home_template.html
+    info_list: Represents the owner of pets in the dog walking business.
+    label: Owner
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - owner_id
+      name: ClientPaymentList
+      resource: ClientPayment
+    - direction: tomany
+      fks:
+      - owner_id
+      name: DogList
+      resource: Dog
+    type: Owner
+  Schedule:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: walker_id
+      template: integer
+      type: INTEGER
+    - name: day_of_week
+      template: text
+      type: VARCHAR
+    - name: available_hours_start
+      type: DATETIME
+    - name: available_hours_end
+      type: DATETIME
+    description: "Represents a walker\u2019s daily schedule."
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    hidden: {}
+    home_template: home_template.html
+    info_list: "Represents a walker\u2019s daily schedule."
+    label: Schedule
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - walker_id
+      name: walker
+      resource: Walker
+    type: Schedule
+  Service:
+    columns:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: dog_id
+      template: integer
+      type: INTEGER
+    - name: price
+      template: integer
+      type: INTEGER
+    - name: id
+      template: integer
+      type: INTEGER
+    description: Represents additional services offered to clients, such as grooming
+      or training.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: name
+    hidden: {}
+    home_template: home_template.html
+    info_list: Represents additional services offered to clients, such as grooming
+      or training.
+    label: Service
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - dog_id
+      name: dog
+      resource: Dog
+    type: Service
+  Walk:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: dog_id
+      template: integer
+      type: INTEGER
+    - name: walker_id
+      template: integer
+      type: INTEGER
+    - name: date_time
+      required: true
+      type: DATETIME
+    - name: duration_minutes
+      template: integer
+      type: INTEGER
+    - name: fee
+      template: integer
+      type: INTEGER
+    description: Represents an individual walk event.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    hidden: {}
+    home_template: home_template.html
+    info_list: Represents an individual walk event.
+    label: Walk
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - walk_id
+      name: DogHistoryList
+      resource: DogHistory
+    - direction: toone
+      fks:
+      - dog_id
+      name: dog
+      resource: Dog
+    - direction: toone
+      fks:
+      - walker_id
+      name: walker
+      resource: Walker
+    type: Walk
+  Walker:
+    columns:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: email
+      template: text
+      type: VARCHAR
+    - name: phone
+      template: text
+      type: VARCHAR
+    - name: hire_date
+      type: DATE
+    - name: total_walks
+      template: integer
+      type: INTEGER
+    - name: total_earnings
+      template: integer
+      type: INTEGER
+    - name: id
+      template: integer
+      type: INTEGER
+    description: Represents a dog walker employee.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: name
+    hidden: {}
+    home_template: home_template.html
+    info_list: Represents a dog walker employee.
+    label: Walker
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - walker_id
+      name: BookingList
+      resource: Booking
+    - direction: tomany
+      fks:
+      - walker_id
+      name: FeedbackList
+      resource: Feedback
+    - direction: tomany
+      fks:
+      - walker_id
+      name: ScheduleList
+      resource: Schedule
+    - direction: tomany
+      fks:
+      - walker_id
+      name: WalkList
+      resource: Walk
+    - direction: tomany
+      fks:
+      - walker_id
+      name: WalkerPaymentList
+      resource: WalkerPayment
+    type: Walker
+  WalkerPayment:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: walker_id
+      template: integer
+      type: INTEGER
+    - name: amount
+      required: true
+      template: integer
+      type: INTEGER
+    - name: date
+      required: true
+      type: DATE
+    description: Represents a payment made to a walker.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    hidden: {}
+    home_template: home_template.html
+    info_list: Represents a payment made to a walker.
+    label: WalkerPayment
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - walker_id
+      name: walker
+      resource: Walker
+    type: WalkerPayment
+settings:
+  HomeJS: /admin-app/home.js
+  max_list_columns: 8
+  style_guide:
+    applicationLocales:
+    - en
+    - es
+    currency_symbol: $
+    currency_symbol_position: left
+    date_format: LL
+    decimal_max: '1000000000'
+    decimal_min: '0'
+    decimal_separator: .
+    edit_on_mode: dblclick
+    exclude_listpicker: false
+    include_translation: false
+    keycloak_client_id: alsclient
+    keycloak_realm: kcals
+    keycloak_url: http://localhost:8080
+    locale: en
+    max_decimal_digits: '4'
+    min_decimal_digits: '2'
+    mode: tab
+    pick_style: list
+    serviceType: OntimizeEE
+    startSessionPath: /auth/login
+    style: light
+    thousand_separator: ','
+    use_keycloak: false

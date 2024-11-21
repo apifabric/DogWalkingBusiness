@@ -1,0 +1,111 @@
+{
+    "name": "Paws on the Move",
+    "logo": {
+        "Type": "Logo",
+        "name": "paws-on-the-move-logo",
+        "description": "A playful and colorful logo featuring a happy dog in motion."
+    },
+    "sections": [
+        {
+            "title": "Welcome to Paws on the Move!",
+            "subtitle": "Professional Dog Walking & Pet Care Services",
+            "name": "hero-section",
+            "label": "Home",
+            "content": "Join us and explore the joy of professional dog walking and specialized pet care services. Let's keep those tails wagging!",
+            "order": 1,
+            "Type": "Hero",
+            "images": [
+                {
+                    "Type": "Hero",
+                    "name": "happy-dog-walk",
+                    "description": "A vibrant image showing a happy dog playing in a park with a dog walker."
+                }
+            ]
+        },
+        {
+            "title": "About Us",
+            "subtitle": "Passionate About Pets",
+            "name": "about-us-section",
+            "label": "About",
+            "content": "**Paws on the Move** is more than just a dog walking service; it's a community for pet lovers. Founded in 2015, we pride ourselves on trusted, reliable care tailored to fit your pet\u2019s needs. Whether it's a simple walk or specialized attention, we are here to help.",
+            "order": 2,
+            "Type": "About",
+            "images": [
+                {
+                    "Type": "Headshot",
+                    "name": "founder-photo",
+                    "description": "A friendly photo of our founder, a pet enthusiast with a love for all four-legged friends."
+                }
+            ]
+        },
+        {
+            "title": "Our Services",
+            "subtitle": "Tailored Care for Every Need",
+            "name": "services-section",
+            "label": "Services",
+            "content": "We offer a range of services to suit every lifestyle:\n\n- **Daily Dog Walks**: Keep your pup happy and healthy!\n\n- **Weekend Adventure Hikes**: Perfect for energetic dogs!\n\n- **Kitty Visits**: Because felines need love too.\n\n- **Pet Sitting**: Trusted care while you're away.",
+            "order": 3,
+            "Type": "Services",
+            "images": [
+                {
+                    "Type": "ItemListing",
+                    "name": "dog-walking-service",
+                    "description": "Service photo showing a dog walker and several happy dogs on a trail."
+                }
+            ]
+        },
+        {
+            "title": "Gallery",
+            "subtitle": "See Us in Action",
+            "name": "gallery-section",
+            "label": "Gallery",
+            "content": "Explore our collection of happy pets enjoying their time with us!\n\n![Image 1 of dog and walker](#)\n![Image 2 of pets](#)",
+            "order": 4,
+            "Type": "Gallery",
+            "images": [
+                {
+                    "Type": "Gallery",
+                    "name": "dog-park-fun",
+                    "description": "Dogs frolicking in the park during a walk session."
+                },
+                {
+                    "Type": "Gallery",
+                    "name": "hiking-dogs",
+                    "description": "Dogs enjoying a weekend adventure hike."
+                }
+            ]
+        },
+        {
+            "title": "Client Testimonials",
+            "subtitle": "What Our Clients Say",
+            "name": "testimonials-section",
+            "label": "Testimonials",
+            "content": "**\"I love their service! My dog Max is always excited for his walks. Highly recommended!\"**  \n- Jane D.\n\n**\"Paws on the Move does wonders with my shy kitty! Great service!\"**  \n- Mark R.",
+            "order": 5,
+            "Type": "Testimonials",
+            "images": [
+                {
+                    "Type": "Testimonial",
+                    "name": "happy-client-dog",
+                    "description": "A client holding their happy dog with our team member."
+                }
+            ]
+        },
+        {
+            "title": "Contact Us",
+            "subtitle": "We're Here to Help",
+            "name": "contact-section",
+            "label": "Contact",
+            "content": "Have questions or ready to schedule a walk? Get in touch!  \n\nEmail: info@pawsonthemove.com  \nPhone: (123) 456-7890  \n\nOr visit us at: 123 Pet Street, Animal City",
+            "order": 6,
+            "Type": "Contact",
+            "images": [
+                {
+                    "Type": "Map",
+                    "name": "business-location-map",
+                    "description": "Map image showing the location of our business."
+                }
+            ]
+        }
+    ]
+}
